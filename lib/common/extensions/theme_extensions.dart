@@ -39,5 +39,7 @@ extension ThemeContextExtensions on BuildContext {
         scaffoldBackgroundColor: LightThemeColors().color1,
         shadowColor: LightThemeColors().onPrimary,
         highlightColor: LightThemeColors().onPrimary,
+        bottomSheetTheme:
+            BottomSheetThemeData(backgroundColor: Colors.black.withOpacity(0)),
       );
 }

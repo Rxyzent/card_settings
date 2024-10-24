@@ -33,12 +33,32 @@ class $AssetsIconsGen {
   SvgGenImage get information =>
       const SvgGenImage('assets/icons/information.svg');
 
+  /// File path: assets/icons/obscureOff.svg
+  SvgGenImage get obscureOff =>
+      const SvgGenImage('assets/icons/obscureOff.svg');
+
+  /// File path: assets/icons/obscureOn.svg
+  SvgGenImage get obscureOn => const SvgGenImage('assets/icons/obscureOn.svg');
+
+  /// File path: assets/icons/transparent.png
+  AssetGenImage get transparent =>
+      const AssetGenImage('assets/icons/transparent.png');
+
   /// File path: assets/icons/verify.png
   AssetGenImage get verify => const AssetGenImage('assets/icons/verify.png');
 
   /// List of all assets
-  List<dynamic> get values =>
-      [bankLogo, chip, contactless, humo, information, verify];
+  List<dynamic> get values => [
+        bankLogo,
+        chip,
+        contactless,
+        humo,
+        information,
+        obscureOff,
+        obscureOn,
+        transparent,
+        verify
+      ];
 }
 
 class $AssetsLocalizationGen {

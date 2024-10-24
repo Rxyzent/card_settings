@@ -1,11 +1,30 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ZoomableImage extends StatefulWidget {
-  const ZoomableImage({super.key, required this.child});
+  const ZoomableImage({
+    super.key,
+    required this.child,
+    required this.imageUsed,
+    required this.blurValue,
+    required this.color,
+    required this.gradientBegin,
+    required this.gradientEnd,
+    required this.gradientColors,
+    required this.enableGradient,
+  });
 
   final Widget child;
+  final bool imageUsed;
+  final double blurValue;
+  final Color color;
+  final bool enableGradient;
+  final Alignment gradientBegin;
+  final Alignment gradientEnd;
+  final List<Color> gradientColors;
+
   @override
   State<ZoomableImage> createState() => _ZoomableImageState();
 }
@@ -31,28 +50,37 @@ class _ZoomableImageState extends State<ZoomableImage> {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: 55/34,
+      aspectRatio: 55 / 34,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(16),
         child: Stack(
           children: [
-            Transform.scale(
-              scale: _scale,
-              child: Image.network(
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRepCoPVhIXI3rEUss3pxeNaHcqwHHgVHZTeQ&s', // Замените на URL вашей фотографии
-                fit: BoxFit.fill,
-              ),
-            ),
-            Container(
-              color: Colors.yellowAccent,
-              width: double.infinity,
-              height: double.infinity,
-            ),
-
+            widget.imageUsed
+                ? Transform.scale(
+                    scale: _scale,
+                    child: CachedNetworkImage(
+                      imageUrl:'https://media.istockphoto.com/id/517188688/photo/mountain-landscape.jpg?s=612x612&w=0&k=20&c=A63koPKaCyIwQWOTFBRWXj_PwCrR4cEoOw2S9Q7yVl8=',
+                      fit: BoxFit.fill,
+                    ),
+                  )
+                : Container(
+                    decoration: BoxDecoration(
+                      color: widget.color,
+                      gradient: (widget.gradientColors.length >= 2 && widget.enableGradient)
+                          ? LinearGradient(
+                              begin: widget.gradientBegin,
+                              end: widget.gradientEnd,
+                              colors: widget.gradientColors,
+                            )
+                          : null,
+                    ),
+                    width: double.infinity,
+                    height: double.infinity,
+                  ),
             BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+              filter: ImageFilter.blur(
+                  sigmaX: widget.blurValue, sigmaY: widget.blurValue),
               child: Container(
-                color: Colors.red.withOpacity(0.3), // Blurred color overlay
                 width: double.infinity,
                 height: double.infinity,
                 alignment: Alignment.center,
@@ -62,7 +90,7 @@ class _ZoomableImageState extends State<ZoomableImage> {
               onScaleStart: _onScaleStart,
               onScaleUpdate: _onScaleUpdate,
               onScaleEnd: _onScaleEnd,
-              child:  widget.child,
+              child: widget.child,
             ),
           ],
         ),
