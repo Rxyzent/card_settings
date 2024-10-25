@@ -26,7 +26,8 @@ class ChangeImage extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               final currentImage = Constants.defaultImages[index];
               return GestureDetector(
-                onTap: () => context.read<SettingsCubit>().saveImage(currentImage,null),
+                onTap: () =>
+                    context.read<SettingsCubit>().saveImage(currentImage, null),
                 child: Container(
                   height: 200,
                   decoration: BoxDecoration(
@@ -78,7 +79,10 @@ class ChangeImage extends StatelessWidget {
 
 Future<void> _pickImage(BuildContext context) async {
   final ImagePicker picker = ImagePicker();
-  final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+  final XFile? image = await picker.pickImage(
+    source: ImageSource.gallery,
+    imageQuality: 40,
+  );
   if (!context.mounted) return;
-  context.read<SettingsCubit>().saveImage(null,image);
+  context.read<SettingsCubit>().saveImage(null, image);
 }

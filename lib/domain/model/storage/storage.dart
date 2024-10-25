@@ -1,5 +1,5 @@
 import 'package:card_settings/common/base/base_storage.dart';
-import 'package:card_settings/domain/model/bacground_settings/background_settings.dart';
+import 'package:card_settings/domain/model/background_settings/background_settings.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 
@@ -13,6 +13,7 @@ class Storage {
   static Future<Storage> create() async {
     await Hive.initFlutter();
     Hive.registerAdapter(BackgroundSettingsImplAdapter());
+    Hive.registerAdapter(PhotoImplAdapter());
     final box = await Hive.openBox('storage');
     return Storage(box);
   }

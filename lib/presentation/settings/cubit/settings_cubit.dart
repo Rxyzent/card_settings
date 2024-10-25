@@ -1,9 +1,8 @@
-import 'dart:convert';
 import 'dart:math';
 
 import 'package:card_settings/common/base/base_cubit.dart';
 import 'package:card_settings/common/constants/constants.dart';
-import 'package:card_settings/domain/model/bacground_settings/background_settings.dart';
+import 'package:card_settings/domain/model/background_settings/background_settings.dart';
 import 'package:card_settings/domain/repo/settings_repo.dart';
 import 'package:card_settings/presentation/settings/cubit/settings_state.dart';
 import 'package:flutter/material.dart';
@@ -149,11 +148,9 @@ class SettingsCubit extends BaseCubit<SettingsBuildable, SettingsListenable> {
 
   void saveImage(String? imageUrl, XFile? photo) async {
     if (photo != null) {
-      final imageBytes = await photo.readAsBytes();
-      final base64Image = base64Encode(imageBytes);
       final imageFormat = photo.path.split(".").last;
       final newPhoto = Photo(
-        imageBase64: base64Image,
+        path: photo.path,
         type: imageFormat,
       );
       final newSettings = buildable.settings!.copyWith(

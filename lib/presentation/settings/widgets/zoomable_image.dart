@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -25,16 +25,18 @@ class _ZoomableImageState extends State<ZoomableImage> {
   double _previousScale = 1.0;
   double _scale = 1.0;
 
-  void _onScaleStart (ScaleStartDetails details){
+  void _onScaleStart(ScaleStartDetails details) {
     _previousScale = _scale;
   }
-  void _onScaleUpdate (ScaleUpdateDetails details){
+
+  void _onScaleUpdate(ScaleUpdateDetails details) {
     setState(() {
-      _scale = _previousScale*details.scale;
+      _scale = _previousScale * details.scale;
       context.read<SettingsCubit>().setZoom(_scale);
     });
   }
-  void _onScaleEnd (ScaleEndDetails details){
+
+  void _onScaleEnd(ScaleEndDetails details) {
     _previousScale = _scale;
   }
 
@@ -53,20 +55,16 @@ class _ZoomableImageState extends State<ZoomableImage> {
               width: double.infinity,
               child: Assets.icons.transparent.image(fit: BoxFit.fill),
             ),
-            (settings.backgroundState == 'IMAGE' || settings.backgroundState == 'PHOTO')
+            (settings.backgroundState == 'IMAGE' ||
+                    settings.backgroundState == 'PHOTO')
                 ? SizedBox(
                     height: double.infinity,
                     width: double.infinity,
                     child: Transform.scale(
                       scale: _scale,
                       child: settings.backgroundState == 'PHOTO'
-                          ? Image(
-                              image: MemoryImage(
-                                  base64Decode(settings.photo!.imageBase64!)),
-                            )
-                          : CachedNetworkImage(
-                              imageUrl: settings.imageUrl!,
-                            ),
+                          ? Image.file(File(settings.photo!.path!))
+                          : CachedNetworkImage(imageUrl: settings.imageUrl!),
                     ),
                   )
                 : Container(
@@ -97,7 +95,7 @@ class _ZoomableImageState extends State<ZoomableImage> {
             ),
             GestureDetector(
               onScaleStart: _onScaleStart,
-              onScaleUpdate:_onScaleUpdate,
+              onScaleUpdate: _onScaleUpdate,
               onScaleEnd: _onScaleEnd,
               child: widget.child,
             ),

@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:card_settings/common/base/base_cubit.dart';
 import 'package:card_settings/common/constants/constants.dart';
-import 'package:card_settings/domain/model/bacground_settings/background_settings.dart';
+import 'package:card_settings/domain/model/background_settings/background_settings.dart';
 import 'package:card_settings/domain/repo/settings_repo.dart';
 import 'package:card_settings/presentation/home/cubit/home_state.dart';
 import 'package:card_settings/presentation/settings/cubit/settings_state.dart';

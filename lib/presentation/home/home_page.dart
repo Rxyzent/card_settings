@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:auto_route/auto_route.dart';
@@ -46,10 +46,7 @@ class HomePage extends BasePage<HomeCubit, HomeBuildable, HomeListenable> {
                       child: Transform.scale(
                         scale: state.settings!.zoom,
                         child: state.settings!.backgroundState == 'PHOTO'
-                            ? Image(
-                          image: MemoryImage(base64Decode(
-                              settings.photo!.imageBase64!)),
-                        )
+                            ? Image.file(File(settings.photo!.path!))
                             : CachedNetworkImage(
                           imageUrl: settings.imageUrl!,
                         ),

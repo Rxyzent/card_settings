@@ -1,5 +1,5 @@
 import 'package:card_settings/data/settings/settings_api.dart';
-import 'package:card_settings/domain/model/bacground_settings/background_settings.dart';
+import 'package:card_settings/domain/model/background_settings/background_settings.dart';
 import 'package:card_settings/domain/model/storage/storage.dart';
 import 'package:card_settings/domain/repo/settings_repo.dart';
 import 'package:injectable/injectable.dart';

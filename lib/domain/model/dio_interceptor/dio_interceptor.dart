@@ -25,8 +25,6 @@ class DioInterceptor extends QueuedInterceptor {
         Strings.supportedLocales.first.languageCode;
     options.headers.addAll({
       'Accept-Language': locale,
-      'login': 'card_settings+',
-      'password': 'Ctc0oTYayc77z',
     });
     handler.next(options);
   }

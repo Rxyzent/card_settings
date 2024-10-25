@@ -24,9 +24,10 @@ class BackgroundSettings with _$BackgroundSettings{
 
 @freezed
 class Photo with _$Photo{
+  @HiveType(typeId: 1)
   const factory Photo({
-    String? imageBase64,
-    String? type,
+    @HiveField(0) String? path,
+    @HiveField(1) String? type,
 }) = _Photo;
   factory Photo.fromJson(Map<String, dynamic> json) =>
       _$PhotoFromJson(json);
