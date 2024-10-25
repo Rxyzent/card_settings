@@ -16,14 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SettingsBuildable {
-  double get blurValue => throw _privateConstructorUsedError;
+  BackgroundSettings? get settings => throw _privateConstructorUsedError;
   SettingType get settingType => throw _privateConstructorUsedError;
-  Color get color => throw _privateConstructorUsedError;
   bool get gradientState => throw _privateConstructorUsedError;
-  bool get useImage => throw _privateConstructorUsedError;
-  List<Color> get gradientColors => throw _privateConstructorUsedError;
-  String get beginAlignment => throw _privateConstructorUsedError;
-  String get endAlignment => throw _privateConstructorUsedError;
   Map<String, Alignment>? get beginAlignments =>
       throw _privateConstructorUsedError;
   Map<String, Alignment>? get endAlignments =>
@@ -43,16 +38,13 @@ abstract class $SettingsBuildableCopyWith<$Res> {
       _$SettingsBuildableCopyWithImpl<$Res, SettingsBuildable>;
   @useResult
   $Res call(
-      {double blurValue,
+      {BackgroundSettings? settings,
       SettingType settingType,
-      Color color,
       bool gradientState,
-      bool useImage,
-      List<Color> gradientColors,
-      String beginAlignment,
-      String endAlignment,
       Map<String, Alignment>? beginAlignments,
       Map<String, Alignment>? endAlignments});
+
+  $BackgroundSettingsCopyWith<$Res>? get settings;
 }
 
 /// @nodoc
@@ -70,50 +62,25 @@ class _$SettingsBuildableCopyWithImpl<$Res, $Val extends SettingsBuildable>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? blurValue = null,
+    Object? settings = freezed,
     Object? settingType = null,
-    Object? color = null,
     Object? gradientState = null,
-    Object? useImage = null,
-    Object? gradientColors = null,
-    Object? beginAlignment = null,
-    Object? endAlignment = null,
     Object? beginAlignments = freezed,
     Object? endAlignments = freezed,
   }) {
     return _then(_value.copyWith(
-      blurValue: null == blurValue
-          ? _value.blurValue
-          : blurValue // ignore: cast_nullable_to_non_nullable
-              as double,
+      settings: freezed == settings
+          ? _value.settings
+          : settings // ignore: cast_nullable_to_non_nullable
+              as BackgroundSettings?,
       settingType: null == settingType
           ? _value.settingType
           : settingType // ignore: cast_nullable_to_non_nullable
               as SettingType,
-      color: null == color
-          ? _value.color
-          : color // ignore: cast_nullable_to_non_nullable
-              as Color,
       gradientState: null == gradientState
           ? _value.gradientState
           : gradientState // ignore: cast_nullable_to_non_nullable
               as bool,
-      useImage: null == useImage
-          ? _value.useImage
-          : useImage // ignore: cast_nullable_to_non_nullable
-              as bool,
-      gradientColors: null == gradientColors
-          ? _value.gradientColors
-          : gradientColors // ignore: cast_nullable_to_non_nullable
-              as List<Color>,
-      beginAlignment: null == beginAlignment
-          ? _value.beginAlignment
-          : beginAlignment // ignore: cast_nullable_to_non_nullable
-              as String,
-      endAlignment: null == endAlignment
-          ? _value.endAlignment
-          : endAlignment // ignore: cast_nullable_to_non_nullable
-              as String,
       beginAlignments: freezed == beginAlignments
           ? _value.beginAlignments
           : beginAlignments // ignore: cast_nullable_to_non_nullable
@@ -123,6 +90,20 @@ class _$SettingsBuildableCopyWithImpl<$Res, $Val extends SettingsBuildable>
           : endAlignments // ignore: cast_nullable_to_non_nullable
               as Map<String, Alignment>?,
     ) as $Val);
+  }
+
+  /// Create a copy of SettingsBuildable
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $BackgroundSettingsCopyWith<$Res>? get settings {
+    if (_value.settings == null) {
+      return null;
+    }
+
+    return $BackgroundSettingsCopyWith<$Res>(_value.settings!, (value) {
+      return _then(_value.copyWith(settings: value) as $Val);
+    });
   }
 }
 
@@ -135,16 +116,14 @@ abstract class _$$SettingsBuildableImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {double blurValue,
+      {BackgroundSettings? settings,
       SettingType settingType,
-      Color color,
       bool gradientState,
-      bool useImage,
-      List<Color> gradientColors,
-      String beginAlignment,
-      String endAlignment,
       Map<String, Alignment>? beginAlignments,
       Map<String, Alignment>? endAlignments});
+
+  @override
+  $BackgroundSettingsCopyWith<$Res>? get settings;
 }
 
 /// @nodoc
@@ -160,50 +139,25 @@ class __$$SettingsBuildableImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? blurValue = null,
+    Object? settings = freezed,
     Object? settingType = null,
-    Object? color = null,
     Object? gradientState = null,
-    Object? useImage = null,
-    Object? gradientColors = null,
-    Object? beginAlignment = null,
-    Object? endAlignment = null,
     Object? beginAlignments = freezed,
     Object? endAlignments = freezed,
   }) {
     return _then(_$SettingsBuildableImpl(
-      blurValue: null == blurValue
-          ? _value.blurValue
-          : blurValue // ignore: cast_nullable_to_non_nullable
-              as double,
+      settings: freezed == settings
+          ? _value.settings
+          : settings // ignore: cast_nullable_to_non_nullable
+              as BackgroundSettings?,
       settingType: null == settingType
           ? _value.settingType
           : settingType // ignore: cast_nullable_to_non_nullable
               as SettingType,
-      color: null == color
-          ? _value.color
-          : color // ignore: cast_nullable_to_non_nullable
-              as Color,
       gradientState: null == gradientState
           ? _value.gradientState
           : gradientState // ignore: cast_nullable_to_non_nullable
               as bool,
-      useImage: null == useImage
-          ? _value.useImage
-          : useImage // ignore: cast_nullable_to_non_nullable
-              as bool,
-      gradientColors: null == gradientColors
-          ? _value._gradientColors
-          : gradientColors // ignore: cast_nullable_to_non_nullable
-              as List<Color>,
-      beginAlignment: null == beginAlignment
-          ? _value.beginAlignment
-          : beginAlignment // ignore: cast_nullable_to_non_nullable
-              as String,
-      endAlignment: null == endAlignment
-          ? _value.endAlignment
-          : endAlignment // ignore: cast_nullable_to_non_nullable
-              as String,
       beginAlignments: freezed == beginAlignments
           ? _value._beginAlignments
           : beginAlignments // ignore: cast_nullable_to_non_nullable
@@ -220,50 +174,22 @@ class __$$SettingsBuildableImplCopyWithImpl<$Res>
 
 class _$SettingsBuildableImpl implements _SettingsBuildable {
   const _$SettingsBuildableImpl(
-      {this.blurValue = 0.0,
+      {this.settings,
       this.settingType = SettingType.none,
-      this.color = Colors.lightBlue,
       this.gradientState = false,
-      this.useImage = false,
-      final List<Color> gradientColors = const [],
-      this.beginAlignment = 'topLeft',
-      this.endAlignment = 'bottomRight',
       final Map<String, Alignment>? beginAlignments,
       final Map<String, Alignment>? endAlignments})
-      : _gradientColors = gradientColors,
-        _beginAlignments = beginAlignments,
+      : _beginAlignments = beginAlignments,
         _endAlignments = endAlignments;
 
   @override
-  @JsonKey()
-  final double blurValue;
+  final BackgroundSettings? settings;
   @override
   @JsonKey()
   final SettingType settingType;
   @override
   @JsonKey()
-  final Color color;
-  @override
-  @JsonKey()
   final bool gradientState;
-  @override
-  @JsonKey()
-  final bool useImage;
-  final List<Color> _gradientColors;
-  @override
-  @JsonKey()
-  List<Color> get gradientColors {
-    if (_gradientColors is EqualUnmodifiableListView) return _gradientColors;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_gradientColors);
-  }
-
-  @override
-  @JsonKey()
-  final String beginAlignment;
-  @override
-  @JsonKey()
-  final String endAlignment;
   final Map<String, Alignment>? _beginAlignments;
   @override
   Map<String, Alignment>? get beginAlignments {
@@ -286,7 +212,7 @@ class _$SettingsBuildableImpl implements _SettingsBuildable {
 
   @override
   String toString() {
-    return 'SettingsBuildable(blurValue: $blurValue, settingType: $settingType, color: $color, gradientState: $gradientState, useImage: $useImage, gradientColors: $gradientColors, beginAlignment: $beginAlignment, endAlignment: $endAlignment, beginAlignments: $beginAlignments, endAlignments: $endAlignments)';
+    return 'SettingsBuildable(settings: $settings, settingType: $settingType, gradientState: $gradientState, beginAlignments: $beginAlignments, endAlignments: $endAlignments)';
   }
 
   @override
@@ -294,21 +220,12 @@ class _$SettingsBuildableImpl implements _SettingsBuildable {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SettingsBuildableImpl &&
-            (identical(other.blurValue, blurValue) ||
-                other.blurValue == blurValue) &&
+            (identical(other.settings, settings) ||
+                other.settings == settings) &&
             (identical(other.settingType, settingType) ||
                 other.settingType == settingType) &&
-            (identical(other.color, color) || other.color == color) &&
             (identical(other.gradientState, gradientState) ||
                 other.gradientState == gradientState) &&
-            (identical(other.useImage, useImage) ||
-                other.useImage == useImage) &&
-            const DeepCollectionEquality()
-                .equals(other._gradientColors, _gradientColors) &&
-            (identical(other.beginAlignment, beginAlignment) ||
-                other.beginAlignment == beginAlignment) &&
-            (identical(other.endAlignment, endAlignment) ||
-                other.endAlignment == endAlignment) &&
             const DeepCollectionEquality()
                 .equals(other._beginAlignments, _beginAlignments) &&
             const DeepCollectionEquality()
@@ -318,14 +235,9 @@ class _$SettingsBuildableImpl implements _SettingsBuildable {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      blurValue,
+      settings,
       settingType,
-      color,
       gradientState,
-      useImage,
-      const DeepCollectionEquality().hash(_gradientColors),
-      beginAlignment,
-      endAlignment,
       const DeepCollectionEquality().hash(_beginAlignments),
       const DeepCollectionEquality().hash(_endAlignments));
 
@@ -341,33 +253,18 @@ class _$SettingsBuildableImpl implements _SettingsBuildable {
 
 abstract class _SettingsBuildable implements SettingsBuildable {
   const factory _SettingsBuildable(
-      {final double blurValue,
+      {final BackgroundSettings? settings,
       final SettingType settingType,
-      final Color color,
       final bool gradientState,
-      final bool useImage,
-      final List<Color> gradientColors,
-      final String beginAlignment,
-      final String endAlignment,
       final Map<String, Alignment>? beginAlignments,
       final Map<String, Alignment>? endAlignments}) = _$SettingsBuildableImpl;
 
   @override
-  double get blurValue;
+  BackgroundSettings? get settings;
   @override
   SettingType get settingType;
   @override
-  Color get color;
-  @override
   bool get gradientState;
-  @override
-  bool get useImage;
-  @override
-  List<Color> get gradientColors;
-  @override
-  String get beginAlignment;
-  @override
-  String get endAlignment;
   @override
   Map<String, Alignment>? get beginAlignments;
   @override

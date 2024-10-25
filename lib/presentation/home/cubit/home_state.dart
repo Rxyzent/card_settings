@@ -1,10 +1,13 @@
+import 'package:card_settings/domain/model/bacground_settings/background_settings.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'home_state.freezed.dart';
 
 @freezed
 class HomeBuildable with _$HomeBuildable {
-  const factory HomeBuildable() = _HomeBuildable;
+  const factory HomeBuildable({
+    BackgroundSettings? settings,
+}) = _HomeBuildable;
 }
 
 @freezed

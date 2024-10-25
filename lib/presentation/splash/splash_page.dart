@@ -15,7 +15,7 @@ class SplashPage extends BasePage<SplashCubit,SplashBuildable,SplashListenable>{
     super.listener(context, state);
     switch (state.effect) {
       case SplashEffect.home:
-        context.router.replace( const SettingsRoute());
+        context.router.replace( const HomeRoute());
         break;
 
     }

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:card_settings/common/base/base_page.dart';
+import 'package:card_settings/common/extensions/text_extensions.dart';
 import 'package:card_settings/common/extensions/theme_extensions.dart';
 import 'package:card_settings/presentation/settings/cubit/settings_cubit.dart';
 import 'package:card_settings/presentation/settings/cubit/settings_state.dart';
@@ -8,8 +9,9 @@ import 'package:card_settings/presentation/settings/widgets/change_color.dart';
 import 'package:card_settings/presentation/settings/widgets/change_image.dart';
 import 'package:card_settings/presentation/settings/widgets/credit_card.dart';
 import 'package:card_settings/presentation/settings/widgets/setting_buttons.dart';
-import 'package:card_settings/presentation/settings/widgets/zoom.dart';
+import 'package:card_settings/presentation/settings/widgets/zoomable_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
 class SettingsPage
@@ -25,15 +27,22 @@ class SettingsPage
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              ZoomableImage(
-                imageUsed: state.useImage,
-                blurValue: state.blurValue,
-                color: state.color,
-                enableGradient: state.gradientState,
-                gradientBegin: alignments[state.beginAlignment]!,
-                gradientEnd: alignments[state.endAlignment]!,
-                gradientColors: state.gradientColors,
-                child: const CreditCard(),
+              GestureDetector(
+                onTap: (){
+                  context.read<SettingsCubit>().sendSettings();
+                  Navigator.of(context).pop(state.settings);
+                },
+                child: Row(
+                  children: [
+                    const Spacer(),
+                    Icon(Icons.check,color: context.colors.white,),
+                    'Save'.w(500).s(18).c(context.colors.white),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+              const ZoomableImage(
+                child: CreditCard(),
               ),
               const SizedBox(height: 32),
               _SettingsWidget(settingType: state.settingType),

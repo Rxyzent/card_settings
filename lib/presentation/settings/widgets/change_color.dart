@@ -12,34 +12,40 @@ class ChangeColor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<SettingsCubit>().buildable;
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        'Change background color'.w(500).s(20).c(context.colors.white),
-        const SizedBox(height: 16),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            'Gradient'.w(500).s(18).c(context.colors.white),
-            Switch(
-              value: state.gradientState,
-              inactiveTrackColor: context.colors.label,
-              onChanged: (value) {
-                context.read<SettingsCubit>().changeGradientState(value);
+            'Change background color'.w(500).s(20).c(context.colors.white),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                'Gradient'.w(500).s(18).c(context.colors.white),
+                Switch(
+                  value: state.gradientState,
+                  inactiveTrackColor: context.colors.label,
+                  onChanged: (value) {
+                    context.read<SettingsCubit>().changeGradientState(value);
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            state.gradientState
+                ? const _GradientColorWidget()
+                : const _SolidColorWidget(),
+            const SizedBox(height: 16),
+            TextButton(
+              onPressed: () {
+                context.read<SettingsCubit>().setSettingType(SettingType.none);
               },
+              child: 'Complete'.w(600).s(20).c(context.colors.white),
             ),
           ],
         ),
-        const SizedBox(height: 8),
-        state.gradientState ? const _GradientColorWidget() : const _SolidColorWidget(),
-        const SizedBox(height: 16),
-        TextButton(
-          onPressed: () {
-            context.read<SettingsCubit>().setSettingType(SettingType.none);
-          },
-          child: 'Complete'.w(600).s(20).c(context.colors.white),
-        ),
-      ],
+      ),
     );
   }
 }
@@ -49,13 +55,13 @@ class _SolidColorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.read<SettingsCubit>().buildable;
+    final settings = context.watch<SettingsCubit>().buildable.settings!;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         ElevatedButton(
           onPressed: () {
-            _showDialog(context, state.color, false);
+            _showDialog(context, settings.color!, false);
           },
           child: Row(
             children: [
@@ -70,7 +76,7 @@ class _SolidColorWidget extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: state.color,
+            color: hexStringToColor(settings.color!),
             border: Border.all(
               color: context.colors.label,
               width: 2,
@@ -87,7 +93,8 @@ class _GradientColorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.read<SettingsCubit>().buildable;
+    final state = context.watch<SettingsCubit>().buildable;
+    final settings = state.settings!;
     return Column(
       children: [
         Row(
@@ -105,8 +112,9 @@ class _GradientColorWidget extends StatelessWidget {
                 elevation: 0,
                 hint: 'gradient begin : '.w(500).c(context.colors.white),
                 dropdownColor: context.colors.white,
-                value: state.beginAlignment,
-                items: state.beginAlignments!.keys.map<DropdownMenuItem<String>>((String key) {
+                value: settings.gradientBegin,
+                items: state.beginAlignments!.keys
+                    .map<DropdownMenuItem<String>>((String key) {
                   return DropdownMenuItem(
                     value: key,
                     child: key.w(500).c(context.colors.black),
@@ -135,8 +143,9 @@ class _GradientColorWidget extends StatelessWidget {
                 elevation: 0,
                 hint: 'gradient begin : '.w(500).c(context.colors.white),
                 dropdownColor: context.colors.white,
-                value: state.endAlignment,
-                items: state.endAlignments!.keys.map<DropdownMenuItem<String>>((String key) {
+                value: settings.gradientEnd,
+                items: state.endAlignments!.keys
+                    .map<DropdownMenuItem<String>>((String key) {
                   return DropdownMenuItem(
                     value: key,
                     child: key.w(500).c(context.colors.black),
@@ -169,9 +178,11 @@ class _GradientColorWidget extends StatelessWidget {
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (BuildContext context, int index) {
-                        final circleColor = state.gradientColors.length > index
-                            ? state.gradientColors[index]
-                            : Colors.transparent;
+                        final circleColor =
+                            settings.gradientColors!.length > index
+                                ? hexStringToColor(
+                                    settings.gradientColors![index])
+                                : Colors.transparent;
                         return Container(
                           height: 40,
                           width: 40,
@@ -206,12 +217,14 @@ class _GradientColorWidget extends StatelessWidget {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          if(state.gradientColors.length == 5){
+                          if (settings.gradientColors!.length == 5) {
                             context.read<SettingsCubit>().displayWarning();
                             return;
                           }
-                          final lastColor = state.gradientColors.isNotEmpty ? state.gradientColors.last : state.color;
-                          _showDialog(context, lastColor, true);
+                          final lastColor = settings.gradientColors!.isNotEmpty
+                              ? settings.gradientColors!.last
+                              : settings.color;
+                          _showDialog(context, lastColor!, true);
                         },
                         child: 'Add'.w(500).c(context.colors.white),
                       ),
@@ -227,19 +240,19 @@ class _GradientColorWidget extends StatelessWidget {
   }
 }
 
-void _showDialog(BuildContext context, Color currentColor, bool isGradient) {
+void _showDialog(BuildContext context, String currentColor, bool isGradient) {
+  var newColor = hexStringToColor(currentColor);
   showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (BuildContext ctx) {
         return AlertDialog(
           title: const Text('Pick a color!'),
           content: SingleChildScrollView(
             child: ColorPicker(
-              pickerColor: currentColor,
+              pickerColor: hexStringToColor(currentColor),
               onColorChanged: (Color color) {
-                isGradient
-                    ? context.read<SettingsCubit>().addGradientColor(color)
-                    : context.read<SettingsCubit>().setColor(color);
+                newColor = color;
               },
             ),
           ),
@@ -247,10 +260,21 @@ void _showDialog(BuildContext context, Color currentColor, bool isGradient) {
             ElevatedButton(
               child: const Text('Save'),
               onPressed: () {
+                isGradient
+                    ? context.read<SettingsCubit>().addGradientColor(newColor)
+                    : context.read<SettingsCubit>().setColor(newColor);
                 Navigator.of(ctx).pop();
               },
             ),
           ],
         );
       });
+}
+
+Color hexStringToColor(String hexColor) {
+  hexColor = hexColor.replaceAll('#', '');
+  if (hexColor.length == 6) {
+    hexColor = 'FF$hexColor';
+  }
+  return Color(int.parse(hexColor, radix: 16));
 }

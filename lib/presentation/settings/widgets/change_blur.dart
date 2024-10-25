@@ -10,19 +10,19 @@ class ChangeBlur extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.read<SettingsCubit>().buildable;
+    final state = context.watch<SettingsCubit>().buildable;
     return Column(
       children: [
-        'Blur'.w(600).c(context.colors.white),
+        'Blur'.w(600).s(22).c(context.colors.white),
         const SizedBox(height: 32),
         Slider(
-          value: state.blurValue,
+          value: state.settings!.blur!,
           min: 0.0,
           max: 15.0,
           divisions: 150,
           activeColor: context.colors.white,
           inactiveColor: context.colors.white.withOpacity(0.24),
-          label: state.blurValue.toStringAsFixed(1),
+          label: state.settings!.blur!.toStringAsFixed(1),
           onChanged: (value) {
             context.read<SettingsCubit>().setBlurValue(value);
           },

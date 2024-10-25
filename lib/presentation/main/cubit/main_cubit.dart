@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:injectable/injectable.dart';
 import 'package:card_settings/common/base/base_cubit.dart';
-import 'package:card_settings/domain/model/user/user_model.dart';
 import 'package:card_settings/domain/repo/main_repo.dart';
 import 'package:card_settings/presentation/main/cubit/main_state.dart';
 
